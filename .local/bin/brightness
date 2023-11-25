@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+parent_dir="/sys/class/backlight/intel_backlight"
+
+# Get max brightness
+max=$(cat $parent_dir/max_brightness)
+
+# Get current brightness
+current=$(cat $parent_dir/brightness) 
+
+case $1 in
+  up)
+    echo -n $((current + 10)) > $parent_dir/brightness
+    ;;
+  down)
+    echo -n $((current - 10)) > $parent_dir/brightness
+    ;;
+esac  
+
+notify-send -r 11111 "$(($(cat $parent_dir/brightness) / (max / 100)))% Brightness"

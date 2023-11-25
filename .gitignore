@@ -1,0 +1,14 @@
+/*
+!.gitignore
+
+!.config/
+.config/*
+!.config/hypr/
+!.config/kitty/
+
+!.local/
+.local/*
+!.local/bin/
+
+!.zshrc
+!.zprofile
