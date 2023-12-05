@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
-parent_dir="/sys/class/backlight/intel_backlight"
-
+parent_dir=$(find /sys/class/backlight/* | head -n 1)
+echo $parent_dir
 # Get max brightness
 max=$(cat $parent_dir/max_brightness)
 
@@ -17,4 +17,4 @@ case $1 in
     ;;
 esac  
 
-notify-send -r 11111 "$(($(cat $parent_dir/brightness) / (max / 100)))% Brightness"
+notify-send -r 11111 "$(($(cat $parent_dir/brightness) * 100 / max))% Brightness"

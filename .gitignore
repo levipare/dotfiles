@@ -5,6 +5,7 @@
 .config/*
 !.config/hypr/
 !.config/kitty/
+!.config/wallpapers/
 
 !.local/
 .local/*
