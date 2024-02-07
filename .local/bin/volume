@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+case $1 in
+    up)
+        pactl set-sink-volume @DEFAULT_SINK@ +1%
+        notify-send -r 11112 "$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "([0-9]+)%" | head -n1) Volume"
+    ;;
+    down)
+        pactl set-sink-volume @DEFAULT_SINK@ -1%
+        notify-send -r 11112 "$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "([0-9]+)%" | head -n1) Volume"    
+    ;;
+    mute)
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        notify-send -r 11112 "$(pactl get-sink-mute @DEFAULT_SINK@)"
+    ;;
+    *)
+        pactl get-sink-volume @DEFAULT_SINK@ | grep -oE '[0-9]+%' | head -n1
+        ;;
+esac

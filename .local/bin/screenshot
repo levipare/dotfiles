@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+temp_image_path="/tmp/screenshot.png"
+
+# Prompt screenshot and save to /tmp
+grim -g "$(slurp)" "$temp_image_path"
+
+# Check if screenshot was actually taken
+if [ $? == 0 ]; then 
+	# Copy to clipboard
+	wl-copy < $temp_image_path  
+
+	# Send notification of screenshot
+	dunstify -i $temp_image_path "Screenshot" "Copied to clipboard" 
+	
+	# Remove temp file
+	rm $temp_image_path
+fi;
