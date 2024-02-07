@@ -1,0 +1,21 @@
+[[language]]
+name = "cpp"
+auto-format = true
+indent = { tab-width = 4, unit = "    "}
+
+[[language]]
+name = "latex"
+scope = "source.tex"
+injection-regex = "tex"
+file-types = ["tex", "sty", "cls", "Rd", "bbx", "cbx"]
+comment-token = "%"
+language-servers = [ "texlab" ]
+indent = { tab-width = 4, unit = "\t" }
+
+[language-server.texlab]
+config = { texlab = { build = { onSave = true } } }
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}

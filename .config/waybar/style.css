@@ -1,0 +1,110 @@
+* {
+    all: initial;
+    font-family: CaskaydiaCode NF, monospace;
+    font-weight: bold;
+    font-size: 14px;
+    color: #c0caf5;
+}
+
+
+window#waybar {
+    background: transparent;
+}
+
+window#waybar > box {
+    margin: 10px 10px 0 10px;
+}
+
+tooltip {
+    padding: 5px;
+    background: rgba(26, 27, 38, .8);
+    border-radius: 10px;
+}
+
+#workspaces {
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+#workspaces button {
+    background: rgba(26, 27, 38, .8);
+    padding: 5px 10px;
+}
+
+#workspaces button label {
+    color: #414868;
+}
+
+#workspaces button.active label {
+    color: #c0caf5;
+}
+
+#workspaces button:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+#workspaces button:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+#workspaces button:only-child {
+    border-radius: 10px;
+}
+
+
+#workspaces button:hover {
+    background: rgba(26, 27, 38, 0.9);
+}
+
+#workspaces button:hover label {
+    color: #c0caf5;
+}
+
+#window,
+#clock,
+#network,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#backlight {
+    background: rgba(26, 27, 38, .8);
+    padding: 0px 10px;
+}
+
+#backlight {
+    color: #f7768e;
+}
+
+#window {
+    border-radius: 10px;
+}
+
+#tray {
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+#clock {
+    color: #e0af68;
+    border-radius: 10px;
+}
+
+#network {
+    color: #cfc9c2;
+    border-radius: 10px 0 0 10px
+}
+
+#pulseaudio {
+    color: #7aa2f7;
+}
+
+#pulseaudio.microphone {
+    color: #bb9af7;
+    border-radius: 0px 10px 10px 0px;
+}
+
+#battery {
+    color: #9ece6a;
+}
+
