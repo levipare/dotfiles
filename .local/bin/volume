@@ -1,19 +1,28 @@
 #!/usr/bin/bash
 
+function get_volume() {
+    echo $(wpctl get-volume @DEFAULT_SINK@ | echo $(grep -Po '(\d+.\d+)') "*100/1" | bc)%
+}
+
 case $1 in
     up)
-        pactl set-sink-volume @DEFAULT_SINK@ +1%
-        notify-send -r 11112 "$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "([0-9]+)%" | head -n1) Volume"
+        wpctl set-volume @DEFAULT_SINK@ 1%+
+        notify-send -r 11112 "$(get_volume) Volume"
     ;;
     down)
-        pactl set-sink-volume @DEFAULT_SINK@ -1%
-        notify-send -r 11112 "$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "([0-9]+)%" | head -n1) Volume"    
+        wpctl set-volume @DEFAULT_SINK@ 1%-
+        notify-send -r 11112 "$(get_volume) Volume"
     ;;
     mute)
-        pactl set-sink-mute @DEFAULT_SINK@ toggle
-        notify-send -r 11112 "$(pactl get-sink-mute @DEFAULT_SINK@)"
+        wpctl set-mute @DEFAULT_SINK@ toggle
+        if wpctl get-volume @DEFAULT_SINK@ | grep "MUTED"
+        then
+            notify-send -r 11112 "Muted Audio"
+        else
+            notify-send -r 11112 "Unmuted Audio"
+        fi
     ;;
     *)
-        pactl get-sink-volume @DEFAULT_SINK@ | grep -oE '[0-9]+%' | head -n1
-        ;;
+        get_volume
+    ;;
 esac

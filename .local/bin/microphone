@@ -1,19 +1,28 @@
 #!/usr/bin/bash
 
+function get_volume() {
+    echo $(wpctl get-volume @DEFAULT_SOURCE@ | echo $(grep -Po '(\d+.\d+)') "*100/1" | bc)%
+}
+
 case $1 in
     up)
-        pactl set-source-volume @DEFAULT_SOURCE@ +1%
-        notify-send -r 11112 "$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -Po "([0-9]+)%" | head -n1) Volume"
+        wpctl set-volume @DEFAULT_SOURCE@ 1%+
+        notify-send -r 11112 "$(get_volume) Microphone Volume"
     ;;
     down)
-        pactl set-source-volume @DEFAULT_SOURCE@ -1%
-        notify-send -r 11112 "$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -Po "([0-9]+)%" | head -n1) Volume"    
+        wpctl set-volume @DEFAULT_SOURCE@ 1%-
+        notify-send -r 11112 "$(get_volume) Microphone Volume"    
     ;;
     mute)
-        pactl set-source-mute @DEFAULT_SOURCE@ toggle
-        notify-send -r 11112 "$(pactl get-source-mute @DEFAULT_SOURCE@)"
+        wpctl set-mute @DEFAULT_SOURCE@ toggle
+        if wpctl get-volume @DEFAULT_SOURCE@ | grep "MUTED"
+        then
+            notify-send -r 11112 "Muted Microphone"
+        else
+            notify-send -r 11112 "Unmuted Microphone"
+        fi
     ;;
     *)
-        pactl get-source-volume @DEFAULT_SOURCE@ | grep -oE '[0-9]+%' | head -n1
-        ;;
+        get_volume
+    ;;
 esac

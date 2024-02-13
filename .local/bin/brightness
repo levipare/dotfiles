@@ -3,19 +3,19 @@
 parent_dir=$(find /sys/class/backlight/* | head -n 1)
 
 # Get max brightness
-max=$(cat $parent_dir/max_brightness)
+max=$(< $parent_dir/max_brightness)
 
 # Get current brightness
-current=$(cat $parent_dir/brightness) 
+current=$(< $parent_dir/brightness)
 
 case $1 in
     up)
         echo -n $((current + 10)) > $parent_dir/brightness
-        notify-send -r 11111 "$(($(cat $parent_dir/brightness) * 100 / max))% Brightness"
+        notify-send -r 11111 "$(($(< $parent_dir/brightness) * 100 / max))% Brightness"
     ;;
     down)
         echo -n $((current - 10)) > $parent_dir/brightness
-        notify-send -r 11111 "$(($(cat $parent_dir/brightness) * 100 / max))% Brightness"
+        notify-send -r 11111 "$(($(< $parent_dir/brightness) * 100 / max))% Brightness"
     ;;
     *)
         echo $((current * 100 / max))%
