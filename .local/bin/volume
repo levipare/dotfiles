@@ -1,17 +1,17 @@
 #!/usr/bin/bash
 
 function get_volume() {
-    echo $(wpctl get-volume @DEFAULT_SINK@ | echo $(grep -Po '(\d+.\d+)') "*100/1" | bc)%
+    wpctl get-volume @DEFAULT_SINK@ | perl -ne '/Volume: (\d+\.\d+)/ && print $1 * 100'
 }
 
 case $1 in
     up)
         wpctl set-volume @DEFAULT_SINK@ 1%+
-        notify-send -r 11112 "$(get_volume) Volume"
+        notify-send -r 11112 "$(get_volume)% Volume"
     ;;
     down)
         wpctl set-volume @DEFAULT_SINK@ 1%-
-        notify-send -r 11112 "$(get_volume) Volume"
+        notify-send -r 11112 "$(get_volume)% Volume"
     ;;
     mute)
         wpctl set-mute @DEFAULT_SINK@ toggle

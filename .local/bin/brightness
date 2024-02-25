@@ -1,23 +1,19 @@
 #!/usr/bin/bash
 
-parent_dir=$(find /sys/class/backlight/* | head -n 1)
-
-# Get max brightness
-max=$(< $parent_dir/max_brightness)
-
-# Get current brightness
-current=$(< $parent_dir/brightness)
+function get_percentage() {
+    brightnessctl -e | grep -Po "Current brightness:.*\(\K[0-9]+"
+}
 
 case $1 in
     up)
-        echo -n $((current + 10)) > $parent_dir/brightness
-        notify-send -r 11111 "$(($(< $parent_dir/brightness) * 100 / max))% Brightness"
+        brightnessctl -e set +10%
+        notify-send -r 11111 "$(get_percentage)% Brightness"
     ;;
     down)
-        echo -n $((current - 10)) > $parent_dir/brightness
-        notify-send -r 11111 "$(($(< $parent_dir/brightness) * 100 / max))% Brightness"
+        brightnessctl -e set 10%-
+        notify-send -r 11111 "$(get_percentage)% Brightness"
     ;;
     *)
-        echo $((current * 100 / max))%
+        get_percentage
     ;;
 esac  

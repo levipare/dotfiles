@@ -1,25 +1,27 @@
 #!/usr/bin/bash
 
 function get_volume() {
-    echo $(wpctl get-volume @DEFAULT_SOURCE@ | echo $(grep -Po '(\d+.\d+)') "*100/1" | bc)%
+    wpctl get-volume @DEFAULT_SOURCE@ | perl -ne '/Volume: (\d+\.\d+)/ && print $1 * 100'
 }
 
 case $1 in
     up)
         wpctl set-volume @DEFAULT_SOURCE@ 1%+
-        notify-send -r 11112 "$(get_volume) Microphone Volume"
+        notify-send -r 11112 "$(get_volume)% Microphone Volume"
     ;;
     down)
         wpctl set-volume @DEFAULT_SOURCE@ 1%-
-        notify-send -r 11112 "$(get_volume) Microphone Volume"    
+        notify-send -r 11112 "$(get_volume)% Microphone Volume"    
     ;;
     mute)
         wpctl set-mute @DEFAULT_SOURCE@ toggle
         if wpctl get-volume @DEFAULT_SOURCE@ | grep "MUTED"
         then
             notify-send -r 11112 "Muted Microphone"
+            brightnessctl --device=platform::micmute set 1
         else
             notify-send -r 11112 "Unmuted Microphone"
+            brightnessctl --device=platform::micmute set 0
         fi
     ;;
     *)

@@ -1,11 +1,6 @@
 {
     "layer": "top",
     "position": "top",
-    "mod": "dock",
-    "exclusive": true,
-    "passthrough": false,
-    "gtk-layer-shell": true,
-    "height": 0,
     "modules-left": [
         "custom/clock",
         "hyprland/workspaces"
@@ -15,13 +10,13 @@
         "tray",
         "network",
         "battery",
-        "backlight",
+        // "backlight",
         "pulseaudio",
         "pulseaudio#microphone"
     ],
 
     "hyprland/window": {
-        "format": "{}"
+        "max-length": 50,
     },
     "tray": {
         "icon-size": 14,
@@ -36,10 +31,10 @@
     "network": {
         "interface": "wlp2s0",
         "format": "{ifname}",
-        "format-wifi": "󰖩 {signalStrength}%",
+        "format-wifi": "󰖩 ",
         "format-ethernet": "{ipaddr}/{cidr}",
         "format-disconnected": "", //An empty format will hide the module.
-        "tooltip-format-wifi": "󰖩 {essid} {signalStrength}%",
+        "tooltip-format-wifi": "{essid} {signalStrength}%",
         "tooltip-format-ethernet": " {ifname}",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50
@@ -51,15 +46,15 @@
     },
     "battery": {
         "states": {
-            "good": 95,
+            "good": 100,
             "warning": 30,
             "critical": 20
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂂", "󰂂", "󰁹"]
+        "format": "{icon}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂂", "󰂂", "󰁹"],
+        "format-charging": "󰂄",
+        "format-plugged": "󰂄",
+        "tooltip-format": "{time} {capacity}%"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",

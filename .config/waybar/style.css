@@ -1,3 +1,5 @@
+@define-color bg_color rgba(26, 27, 38, .8);
+
 * {
     all: initial;
     font-family: CaskaydiaCode NF, monospace;
@@ -7,12 +9,12 @@
 }
 
 window#waybar {
-    background-color: rgba(26, 27, 38, .8);
+    background: @bg_color;
 }
 
 tooltip {
     padding: 5px;
-    background: rgba(26, 27, 38, .8);
+    background: @bg_color;
     border-radius: 10px;
 }
 
@@ -50,34 +52,15 @@ tooltip {
 }
 
 #workspaces button:hover {
-    background: rgba(26, 27, 38, 0.9);
+    background: @bg_color;
 }
 
-#workspaces button:hover label {
-    color: #c0caf5;
-}
 
-#backlight {
-    color: #f7768e;
-}
-
-#custom-clock {
+#battery.warning {
     color: #e0af68;
 }
 
-#network {
-    color: #cfc9c2;
-}
-
-#pulseaudio {
-    color: #7aa2f7;
-}
-
-#pulseaudio.microphone {
-    color: #bb9af7;
-}
-
-#battery {
-    color: #9ece6a;
+#battery.critical {
+    color: #f7768e;
 }
 

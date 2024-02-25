@@ -1,7 +1,7 @@
 [[language]]
 name = "cpp"
-auto-format = true
 indent = { tab-width = 4, unit = "    "}
+auto-format = true
 
 [[language]]
 name = "latex"
@@ -11,6 +11,7 @@ file-types = ["tex", "sty", "cls", "Rd", "bbx", "cbx"]
 comment-token = "%"
 language-servers = [ "texlab" ]
 indent = { tab-width = 4, unit = "\t" }
+auto-format = true
 
 [language-server.texlab]
 config = { texlab = { build = { onSave = true } } }
