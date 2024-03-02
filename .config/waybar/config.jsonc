@@ -2,7 +2,6 @@
     "layer": "top",
     "position": "top",
     "modules-left": [
-        "custom/clock",
         "hyprland/workspaces"
     ],
     "modules-center": ["hyprland/window"],
@@ -11,8 +10,9 @@
         "network",
         "battery",
         // "backlight",
-        "pulseaudio",
-        "pulseaudio#microphone"
+        "pulseaudio#source",
+        "pulseaudio#sink",
+        "custom/clock",
     ],
 
     "hyprland/window": {
@@ -25,13 +25,12 @@
     "custom/clock": {
         "format": "{}",
         "interval": 5,
-        "exec": "date +'%a %b %d %-I:%M %p'",
-        "tooltip": false,
+        "exec": "date +'%a %b %-d %-I:%M %p'",
     },
     "network": {
         "interface": "wlp2s0",
         "format": "{ifname}",
-        "format-wifi": "󰖩 ",
+        "format-wifi": "󰖩",
         "format-ethernet": "{ipaddr}/{cidr}",
         "format-disconnected": "", //An empty format will hide the module.
         "tooltip-format-wifi": "{essid} {signalStrength}%",
@@ -56,10 +55,9 @@
         "format-plugged": "󰂄",
         "tooltip-format": "{time} {capacity}%"
     },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "tooltip": false,
-        "format-muted": " Muted",
+    "pulseaudio#source": {
+        "format": "{icon}",
+        "format-muted": "󰖁",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -67,12 +65,14 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
-        }
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "tooltip-format": "{volume}%",
     },
-    "pulseaudio#microphone": {
+    "pulseaudio#sink": {
         "format": "{format_source}",
-        "format-source": "󰍬 {volume}%",
-        "format-source-muted": "󰍭 Muted"
-    }
+        "format-source": "󰍬",
+        "format-source-muted": "󰍭",
+        "tooltip": false
+   }
 }
